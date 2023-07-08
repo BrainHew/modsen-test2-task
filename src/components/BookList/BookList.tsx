@@ -1,8 +1,8 @@
 import React from 'react';
-import { IBook } from '../types/types';
 import BookItem from './BookItem';
+import { IBook } from '../types/types';
 interface BookListProps {
-    books: IBook[]
+    books: IBook[];
 }
 
 const BookList: React.FC<BookListProps> = ({books}) => {
