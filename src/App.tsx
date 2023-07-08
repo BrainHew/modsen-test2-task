@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import Header from "./components/Header/Header";
 import BookList from "./components/BookList/BookList";
 import { IBook, IBookResponse } from "./components/types/types";
+import axios from 'axios'
 
 const App = () => {
   const [books,setBooks] = useState<IBook[]>([])
@@ -13,11 +14,11 @@ const App = () => {
 
   async function fetchBooks(){
     try{
-      fetch(url)
-      .then(response => response.json())
-      .then((data: IBookResponse) => {
-        setBooks(data.items)
-      });
+      axios.get(url)
+      .then(response => {
+        const data: IBookResponse = response.data;
+        setBooks(data.items);
+      })
     } catch (e){
       alert(e)
     }
