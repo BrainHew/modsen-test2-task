@@ -13,7 +13,7 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
   }
 
   return (
-    <div>
+    <div className="flex flex-wrap justify-center">
       {books.map(book => (
         <BookItem key={book.id} book={book} />
       ))}
