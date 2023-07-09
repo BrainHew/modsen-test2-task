@@ -6,7 +6,7 @@ import axios from 'axios'
 
 const App = () => {
   const [books,setBooks] = useState<IBook[]>([])
-  const url = 'https://www.googleapis.com/books/v1/volumes?q=react&key=AIzaSyCVbhdTqvPKrr5E5-Q-8UljT76Ie9uUB2M&maxResults=30';
+  const url = 'https://www.googleapis.com/books/v1/volumes?q=typescript&key=AIzaSyCVbhdTqvPKrr5E5-Q-8UljT76Ie9uUB2M&maxResults=30';
 
   useEffect(() => {
     fetchBooks()

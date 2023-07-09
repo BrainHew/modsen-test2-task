@@ -7,7 +7,7 @@ import SortForm from './SortForm/SormForm';
 const Header: React.FC = () => {
   return (
     <div
-      className='relative flex flex-col justify-center items-center min-h-[260px] px-5 shadow-md'
+      className='relative flex flex-col justify-center items-center min-h-[260px] px-5 shadow-md overflow-hidden p-2'
       style={{
         backgroundImage: 'url(/background.png)',
         backgroundSize: 'cover',
