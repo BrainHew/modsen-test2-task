@@ -13,9 +13,9 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
   }
 
   return (
-    <div>
+    <div className="bg-beige-100">
       <div className="flex flex-wrap justify-center">
-        <h2 className="text-2xl m-4">Found {books.length} results</h2>
+        <h2 className=" m-2 text-base md:m-4 md:text-2xl">Found {books.length} results</h2>
       </div>
 
       <div className="flex flex-wrap justify-center">
