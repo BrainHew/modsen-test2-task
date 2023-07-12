@@ -36,7 +36,7 @@ const useSearchBooks = (query: string, category: string, sortBy: string): IUseSe
       }
     };
     fetchBooks();
-  }, [query, category, sortBy]);
+  }, [query, category, sortBy, error]);
 
   return { books, isLoading, error };
 };

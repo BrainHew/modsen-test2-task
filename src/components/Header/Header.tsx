@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SearchForm from './SearchForm/SearchForm';
-import CategoriesForm from './CategoriesForm/CateoriesForm';
-import SortForm from './SortForm/SormForm';
 import backgroundImage from '../../assets/images/background.png';
 import { IBook } from '../types/types';
 
