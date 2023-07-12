@@ -1,7 +1,6 @@
 import React from 'react';
 import BookItem from './BookItem';
 import Error from '../Error/Error';
-import Loader from '../Loader/Loader';
 import { IBook } from '../types/types';
 
 interface BookListProps {
