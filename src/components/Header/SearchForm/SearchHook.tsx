@@ -8,7 +8,7 @@ interface IUseSearchBooksResult {
   error: Error | null;
 }
 
-const useSearchBooks = (query: string): IUseSearchBooksResult => {
+const useSearchBooks = (query: string, category: string, sortBy: string): IUseSearchBooksResult => {
   const [books, setBooks] = useState<IBook[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
@@ -19,7 +19,11 @@ const useSearchBooks = (query: string): IUseSearchBooksResult => {
         setIsLoading(true);
         setError(null);
         try {
-          const searchUrl = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=AIzaSyCVbhdTqvPKrr5E5-Q-8UljT76Ie9uUB2M&maxResults=30`;
+          let searchUrl = `https://www.googleapis.com/books/v1/volumes?q=intitle:${query}`;
+          if (category !== "all") {
+            searchUrl += `+subject:${category}`;
+          }
+          searchUrl += `&orderBy=${sortBy}&maxResults=30`;
           const response = await axios.get(searchUrl);
           const data: IBookResponse = response.data;
           setBooks(data.items);
@@ -32,7 +36,7 @@ const useSearchBooks = (query: string): IUseSearchBooksResult => {
       }
     };
     fetchBooks();
-  }, [query]);
+  }, [query, category, sortBy]);
 
   return { books, isLoading, error };
 };

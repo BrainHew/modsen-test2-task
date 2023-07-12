@@ -19,9 +19,9 @@ const BookItem: React.FC<BookItemProps> = ({ book }) => {
             <div className=" rounded-lg object-cover bg-white "/>
           )}
         </div>
-        <div className="text-gray-600 mt-2 text-sm md:text-base underline">
-    {book.volumeInfo.categories?.length ? book.volumeInfo.categories.join(", ") : "N/A"}
-    </div>
+      <div className="text-gray-600 mt-2 text-sm md:text-base underline">
+      {book.volumeInfo.categories?.length ? book.volumeInfo.categories.join(", ") : "N/A"}
+      </div>
       <div className="text-xs md:text-base font-bold mt-4 mb-2">{book.volumeInfo.title}</div>
       <div className="text-gray-600 mb-2 text-xs md:text-base">By {book.volumeInfo.authors?.join(", ")}</div>
     </div>
