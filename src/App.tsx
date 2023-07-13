@@ -1,21 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './components/Header/Header';
 import BookList from './components/BookList/BookList';
 import BookDetails from './components/BookDetails/BookDetails';
 import { IBook } from './components/types/types';
-import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import useSearchBooks from './components/Header/SearchForm/SearchHook';
 
 const App = () => {
-  const [books, setBooks] = useState<IBook[]>([]);
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("all");
+  const [sortBy, setSortBy] = useState("relevance");
+  const [page, setPage] = useState(1);
+  const maxResults = 30;
+
+  const { books, isLoading, error, totalItems } = useSearchBooks(query, category, sortBy, page, maxResults);
+
+  const handleLoadMore = () => {
+    setPage(page + 1);
+  };
 
   return (
     <div>
       <BrowserRouter>
-        <Header setBooks={setBooks} />
+        <Header query={query} category={category} sortBy={sortBy} setQuery={setQuery} setCategory={setCategory} setSortBy={setSortBy} setPage={setPage} />
         <Routes>
-          <Route path="/" element={<BookList books={books} />} />
-          <Route path="/:id" element={<BookDetails/>} />
+          <Route
+            path="/"
+            element={<BookList books={books} totalItems={totalItems} onLoadMore={handleLoadMore} />}
+          />
+          <Route path="/:id" element={<BookDetails />} />
         </Routes>
       </BrowserRouter>
     </div>

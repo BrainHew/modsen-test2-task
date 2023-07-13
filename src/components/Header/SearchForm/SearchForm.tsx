@@ -1,27 +1,26 @@
-import React, { useState } from "react";
-import useSearchBooks from "./SearchHook";
-import { IBook } from "../../types/types";
+import React from "react";
 import CategoriesForm from "../CategoriesForm/CateoriesForm";
 import SortForm from "../SortForm/SormForm";
 
 interface SearchFormProps {
-  setBooks: React.Dispatch<React.SetStateAction<IBook[]>>;
+  query: string;
+  category: string;
+  sortBy: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  setSortBy: React.Dispatch<React.SetStateAction<string>>;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({ setBooks }) => {
-  const [query, setQuery] = useState<string>("");
-  const [category, setCategory] = useState<string>("all");
-  const [sortBy, setSortBy] = useState<string>("relevance");
-
-  const { isLoading, error, books } = useSearchBooks(query, category, sortBy);
+const SearchForm: React.FC<SearchFormProps> = ({query, category, sortBy, setQuery, setCategory, setSortBy, setPage }) => {
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    setBooks(books);
+    setPage(1);
   };
 
   return (
-    <div className="flex items-center justify-center h-full">
+    <div className=" flex flex-col items-center justify-center h-full">
       <form onSubmit={submitHandler} className="relative w-full md:w-[560px]">
         <input
           value={query}
@@ -38,13 +37,12 @@ const SearchForm: React.FC<SearchFormProps> = ({ setBooks }) => {
           Search
         </button>
       </form>
-      {isLoading && <div>Loading...</div>}
-      {error && <div>Error: {error.message}</div>}
       <div className="flex flex-row justify-between items-center z-10">
         <CategoriesForm category={category} setCategory={setCategory} />
+        <div className="mx-4" />
         <SortForm sortBy={sortBy} setSortBy={setSortBy} />
       </div>
-    </div>
+  </div>
   );
 };
 
