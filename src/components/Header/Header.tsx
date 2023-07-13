@@ -1,7 +1,6 @@
 import React from 'react';
 import SearchForm from './SearchForm/SearchForm';
 import backgroundImage from '../../assets/images/background.png';
-import { IBook } from '../types/types';
 
 interface HeaderProps {
   query: string;

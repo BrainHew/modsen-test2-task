@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import BookItem from './BookItem';
 import Error from '../Error/Error';
 import { IBook } from '../types/types';

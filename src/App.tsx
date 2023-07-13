@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Header from './components/Header/Header';
 import BookList from './components/BookList/BookList';
 import BookDetails from './components/BookDetails/BookDetails';
-import { IBook } from './components/types/types';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import useSearchBooks from './components/Header/SearchForm/SearchHook';
 
@@ -13,7 +12,7 @@ const App = () => {
   const [page, setPage] = useState(1);
   const maxResults = 30;
 
-  const { books, isLoading, error, totalItems } = useSearchBooks(query, category, sortBy, page, maxResults);
+  const { books, totalItems } = useSearchBooks(query, category, sortBy, page, maxResults);
 
   const handleLoadMore = () => {
     setPage(page + 1);
