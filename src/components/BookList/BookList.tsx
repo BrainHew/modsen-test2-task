@@ -1,7 +1,9 @@
 import React from 'react';
-import BookItem from './BookItem';
+
 import Error from '../Error/Error';
-import { IBook } from '../types/types';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import { IBook } from '../../types/types';
+import BookItem from './BookItem';
 
 interface BookListProps {
   books: IBook[];
@@ -34,7 +36,9 @@ const BookList: React.FC<BookListProps> = ({ books, totalItems, onLoadMore }) =>
       </div>
       <div className="flex flex-wrap justify-center">
         {books.map((book) => (
-          <BookItem key={book.id} book={book} />
+          <ErrorBoundary>
+            <BookItem key={book.id} book={book} />
+          </ErrorBoundary>
         ))}
       </div>
     </div>

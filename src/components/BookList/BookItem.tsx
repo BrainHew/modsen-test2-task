@@ -1,6 +1,8 @@
 import React from 'react';
-import { IBook } from '../types/types';
 import { useNavigate } from 'react-router-dom';
+
+import { IBook } from '../../types/types';
+import { IBookData, formatBookData } from '../../utils/bookUtils';
 
 interface BookItemProps {
   book: IBook;
@@ -8,9 +10,10 @@ interface BookItemProps {
 
 const BookItem: React.FC<BookItemProps> = ({ book }) => {
   const navigate = useNavigate();
+  const bookData: IBookData = formatBookData(book);
 
   const handleClick = () => {
-    navigate(`/${book.id}`);
+    navigate(`/${bookData.id}`);
   };
 
   return (
@@ -19,10 +22,10 @@ const BookItem: React.FC<BookItemProps> = ({ book }) => {
       onClick={handleClick}
     >
       <div className="flex justify-center items-start mt-4">
-        {book.volumeInfo.imageLinks?.smallThumbnail ? (
+        {bookData.image ? (
           <img
-            src={book.volumeInfo.imageLinks.smallThumbnail}
-            alt={book.volumeInfo.title}
+            src={bookData.image}
+            alt={bookData.title}
             className="rounded-lg shadow-2xl object-cover w-full h-full md:w-24 md:h-32 lg:w-3/6 lg:h-40"
           />
         ) : (
@@ -30,15 +33,13 @@ const BookItem: React.FC<BookItemProps> = ({ book }) => {
         )}
       </div>
       <div className="text-gray-600 mt-2 text-sm md:text-base underline">
-        {book.volumeInfo.categories?.length
-          ? book.volumeInfo.categories.join(', ')
-          : 'N/A'}
+        {bookData.categories.length ? bookData.categories.join(', ') : 'N/A'}
       </div>
       <div className="text-xs md:text-base font-bold mt-4 mb-2">
-        {book.volumeInfo.title}
+        {bookData.title}
       </div>
       <div className="text-gray-600 mb-2 text-xs md:text-base">
-        By {book.volumeInfo.authors?.join(', ')}
+        By {bookData.authors.join(', ')}
       </div>
     </div>
   );

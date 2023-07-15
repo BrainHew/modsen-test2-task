@@ -1,6 +1,7 @@
 import React from 'react';
-import SearchForm from './SearchForm/SearchForm';
+
 import backgroundImage from '../../assets/images/background.png';
+import SearchForm from './SearchForm/SearchForm';
 
 interface HeaderProps {
   query: string;

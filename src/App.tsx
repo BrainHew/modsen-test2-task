@@ -3,7 +3,7 @@ import Header from './components/Header/Header';
 import BookList from './components/BookList/BookList';
 import BookDetails from './components/BookDetails/BookDetails';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import useSearchBooks from './components/Header/SearchForm/SearchHook';
+import useSearchBooks from './hooks/SearchHook';
 
 const App = () => {
   const [query, setQuery] = useState("");

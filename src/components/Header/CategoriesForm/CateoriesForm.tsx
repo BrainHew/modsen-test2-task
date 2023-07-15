@@ -6,6 +6,7 @@ interface CategoriesFormProps {
 }
 
 const CategoriesForm: React.FC<CategoriesFormProps> = ({ category, setCategory }) => {
+  
   const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(event.target.value);
   };

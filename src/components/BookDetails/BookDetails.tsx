@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IBook } from '../types/types';
+import { IBook } from '../../types/types';
 import { useParams } from 'react-router-dom';
 import Error from '../Error/Error';
 import axios from 'axios';
