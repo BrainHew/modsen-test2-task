@@ -1,8 +1,8 @@
 import React from "react";
 
+import { categoryOptions, sortByOptions } from "../../../constants/selectOptions";
 import ErrorBoundary from "../../ErrorBoundary/ErrorBoundary";
-import CategoriesForm from "../CategoriesForm/CateoriesForm";
-import SortForm from "../SortForm/SormForm";
+import SelectForm from "../SelectForm.tsx/SelectForm";
 
 interface SearchFormProps {
   query: string;
@@ -41,11 +41,11 @@ const SearchForm: React.FC<SearchFormProps> = ({query, category, sortBy, setQuer
       </form>
       <div className="flex flex-row justify-between items-center z-10">
         <ErrorBoundary>
-          <CategoriesForm category={category} setCategory={setCategory} />
+          <SelectForm label="Categories" value={category} options={categoryOptions} onChange={setCategory} />
         </ErrorBoundary>
         <div className="mx-4" />
         <ErrorBoundary>
-         <SortForm sortBy={sortBy} setSortBy={setSortBy} />
+         <SelectForm label="Sort By" value={sortBy} options={sortByOptions} onChange={setSortBy} />
         </ErrorBoundary>
       </div>
   </div>
