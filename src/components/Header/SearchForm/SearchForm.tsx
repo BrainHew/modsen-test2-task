@@ -1,6 +1,6 @@
 import React from "react";
 
-import { categoryOptions, sortByOptions } from "../../../constants/selectOptions";
+import { categoryOptions, sortByOptions } from "../../../constace/selectOptions";
 import ErrorBoundary from "../../ErrorBoundary/ErrorBoundary";
 import SelectForm from "../SelectForm.tsx/SelectForm";
 

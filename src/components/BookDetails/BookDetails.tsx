@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { IBook } from '../../types/types';
-import { useParams } from 'react-router-dom';
-import Error from '../Error/Error';
 import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { IBook } from '../../types/types';
+import Error from '../Error/Error';
 import Loader from '../Loader/Loader';
 
 const BookDetails: React.FC = () => {
@@ -13,7 +14,7 @@ const BookDetails: React.FC = () => {
   useEffect(() => {
     const fetchBookData = async () => {
       try {
-        const response = await axios.get(`https://www.googleapis.com/books/v1/volumes/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_BOOKS_API_URL}/${id}?key=${process.env.REACT_APP_BOOKS_API_KEY}`);
         setBookData(response.data);
       } catch (error) {
         setIsLoading(false);

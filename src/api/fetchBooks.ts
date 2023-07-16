@@ -9,11 +9,8 @@ export const searchBooks = async (
   page: number,
   maxResults: number
 ) => {
-  let searchUrl = `https://www.googleapis.com/books/v1/volumes?q=intitle:${query}`;
-  if (category !== 'all') {
-    searchUrl += `+subject:${category}`;
-  }
-  searchUrl += `&orderBy=${sortBy}&orderBy=${sortBy}&startIndex=${(page - 1) * maxResults}&maxResults=${maxResults}`;
+  const searchUrl = `${process.env.REACT_APP_BOOKS_API_URL}?q=intitle:${query}${category !== 'all' ? `+subject:${category}` : ''}
+  &orderBy=${sortBy}&key=${process.env.REACT_APP_BOOKS_API_KEY}&startIndex=${(page - 1) * maxResults}&maxResults=${maxResults}`;
   const response = await axios.get(searchUrl);
   const data: IBookResponse = response.data;
   return data;

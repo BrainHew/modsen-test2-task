@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { IBook } from '../../types/types';
 import Error from '../Error/Error';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
-import { IBook } from '../../types/types';
 import BookItem from './BookItem';
 
 interface BookListProps {
