@@ -1,34 +1,16 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { IBook } from '../../types/types';
+import { useBookDetails } from '../../hooks/useBookDetails';
 import Error from '../Error/Error';
 import Loader from '../Loader/Loader';
 
 const BookDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [bookData, setBookData] = useState<IBook | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const fetchBookData = async () => {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_BOOKS_API_URL}/${id}?key=${process.env.REACT_APP_BOOKS_API_KEY}`);
-        setBookData(response.data);
-      } catch (error) {
-        setIsLoading(false);
-        return <Error />;
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchBookData();
-  }, [id]);
+  const { bookData, isLoading } = useBookDetails(id || '');
 
   if (isLoading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   if (!bookData) {

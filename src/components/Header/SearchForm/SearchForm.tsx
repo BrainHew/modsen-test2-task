@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { categoryOptions, sortByOptions } from "../../../constace/selectOptions";
 import { BookContext } from '../../../utils/bookContext';
 import ErrorBoundary from "../../Error/ErrorBoundary/ErrorBoundary";
-import Loader from "../../Loader/Loader";
 import SelectForm from "../SelectForm.tsx/SelectForm";
 
 const SearchForm = () => {
@@ -15,21 +14,17 @@ const SearchForm = () => {
     setQuery,
     setCategory,
     setSortBy,
-    setPage,
-    isLoading // Получаем isLoading из контекста
   } = useContext(BookContext);
 
   const navigate = useNavigate();
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    setPage(1);
     navigate('/');
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-full relative">
-      {isLoading && <Loader/>} {/* Отображаем индикатор загрузки, если isLoading === true */}
       <form onSubmit={submitHandler} className="relative w-full md:w-[560px]">
         <input
           value={query}
