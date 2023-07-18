@@ -1,28 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { categoryOptions, sortByOptions } from "../../../constace/selectOptions";
-import ErrorBoundary from "../../ErrorBoundary/ErrorBoundary";
+import { BookContext } from '../../../utils/bookContext';
+import ErrorBoundary from "../../Error/ErrorBoundary/ErrorBoundary";
+import Loader from "../../Loader/Loader";
 import SelectForm from "../SelectForm.tsx/SelectForm";
 
-interface SearchFormProps {
-  query: string;
-  category: string;
-  sortBy: string;
-  setQuery: React.Dispatch<React.SetStateAction<string>>;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
-  setSortBy: React.Dispatch<React.SetStateAction<string>>;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-}
+const SearchForm = () => {
+  const {
+    query,
+    category,
+    sortBy,
+    setQuery,
+    setCategory,
+    setSortBy,
+    setPage,
+    isLoading // Получаем isLoading из контекста
+  } = useContext(BookContext);
 
-const SearchForm: React.FC<SearchFormProps> = ({query, category, sortBy, setQuery, setCategory, setSortBy, setPage }) => {
+  const navigate = useNavigate();
 
-  const submitHandler = (e: React.FormEvent) => {
+  const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     setPage(1);
+    navigate('/');
   };
 
   return (
-    <div className=" flex flex-col items-center justify-center h-full">
+    <div className="flex flex-col items-center justify-center h-full relative">
+      {isLoading && <Loader/>} {/* Отображаем индикатор загрузки, если isLoading === true */}
       <form onSubmit={submitHandler} className="relative w-full md:w-[560px]">
         <input
           value={query}
@@ -32,8 +39,7 @@ const SearchForm: React.FC<SearchFormProps> = ({query, category, sortBy, setQuer
           placeholder="Search for books..."
         />
         <button
-          type="button"
-          onClick={submitHandler}
+          type="submit"
           className="absolute top-0 right-0 h-[41px] px-3 py-2 rounded-md text-gray-800 bg-gray-200 hover:bg-gray-400 focus:outline-none"
         >
           Search
@@ -45,10 +51,10 @@ const SearchForm: React.FC<SearchFormProps> = ({query, category, sortBy, setQuer
         </ErrorBoundary>
         <div className="mx-4" />
         <ErrorBoundary>
-         <SelectForm label="Sort By" value={sortBy} options={sortByOptions} onChange={setSortBy} />
+          <SelectForm label="Sort By" value={sortBy} options={sortByOptions} onChange={setSortBy} />
         </ErrorBoundary>
       </div>
-  </div>
+    </div>
   );
 };
 

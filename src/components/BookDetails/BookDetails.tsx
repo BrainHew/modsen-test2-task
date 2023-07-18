@@ -40,12 +40,16 @@ const BookDetails: React.FC = () => {
   return (
     <div className="flex flex-col md:flex-row">
       <div className="md:w-1/2 md:p-8">
-        {book.imageLinks?.large && (
+        {book.imageLinks?.large ? (
           <img
             src={book.imageLinks.large}
             alt={book.title}
             className="rounded-lg shadow-2xl object-cover w-full h-full"
           />
+        ) : (
+          <div className="bg-gray-100 flex items-center justify-center rounded-lg shadow-2xl w-full h-full">
+            <span className="text-gray-600">No image available</span>
+          </div>
         )}
       </div>
       <div className="md:w-1/2 md:p-8">
