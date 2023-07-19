@@ -8,12 +8,12 @@ export const BookProvider = ({ children }: { children: React.ReactNode }) => {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
   const [sortBy, setSortBy] = useState("relevance");
-  const [maxResults, setMaxResults] = useState(30);
 
-  const { books, totalItems, isLoading, error } = useSearchBooks(query, category, sortBy,  maxResults);
+  const { allBooks, displayedBooks, setDisplayedBooks, totalItems, isLoading, error } = useSearchBooks(query, category, sortBy);
 
   const handleLoadMore = () => {
-    setMaxResults(maxResults+30)
+    const nextBooks = allBooks.slice(displayedBooks.length, displayedBooks.length + 30);
+    setDisplayedBooks([...displayedBooks, ...nextBooks]);
   };
 
   const contextValue = {
@@ -23,8 +23,7 @@ export const BookProvider = ({ children }: { children: React.ReactNode }) => {
     setCategory,
     sortBy,
     setSortBy,
-    maxResults,
-    books,
+    books: displayedBooks,
     totalItems,
     isLoading,
     handleLoadMore,
