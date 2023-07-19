@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
 import { searchBooks } from '../api/fetchBooks';
 import useSearchBooks from '../hooks/SearchHook';
@@ -11,6 +11,10 @@ export const BookProvider = ({ children }: { children: React.ReactNode }) => {
   const [sortBy, setSortBy] = useState("relevance");
 
   const { displayedBooks, setDisplayedBooks, totalItems, isLoading, error } = useSearchBooks(query, category, sortBy, 1500);
+
+  useEffect(() => {
+    setDisplayedBooks([]);
+  }, [query, category, sortBy,setDisplayedBooks]);
 
   const handleLoadMore = async () => {
     const nextStartIndex = displayedBooks.length;
