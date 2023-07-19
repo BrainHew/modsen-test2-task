@@ -27,15 +27,15 @@ const useSearchBooks = (
 
   const debouncedFetchBooks = useDebounce(
     useCallback(async (params) => {
-      const { query, category, sortBy } = params;
+      const { query, category, sortBy, startIndex, maxResults } = params;
       if (query) {
         setIsLoading(true);
         setError(null);
         try {
-          const data = await searchBooks(query, category, sortBy);
-          setAllBooks(data.items);
+          const data = await searchBooks(query, category, sortBy, startIndex, maxResults);
+          setAllBooks((prevBooks) => [...prevBooks, ...data.items]);
           setTotalItems(data.totalItems);
-          setDisplayedBooks(data.items.slice(0, 30));
+          setDisplayedBooks((prevBooks) => [...prevBooks, ...data.items.slice(prevBooks.length, prevBooks.length + maxResults)]);
         } catch (e) {
           setError(error);
         }
@@ -49,7 +49,7 @@ const useSearchBooks = (
   );
 
   useEffect(() => {
-    debouncedFetchBooks({ query, category, sortBy });
+    debouncedFetchBooks({ query, category, sortBy, startIndex: 0, maxResults: 30 });
   }, [query, category, sortBy, debouncedFetchBooks]);
 
   return { allBooks, displayedBooks, setDisplayedBooks, isLoading, error, totalItems };

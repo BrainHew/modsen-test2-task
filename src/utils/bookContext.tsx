@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
 
+import { searchBooks } from '../api/fetchBooks';
 import useSearchBooks from '../hooks/SearchHook';
 
 export const BookContext = createContext<any>(null);
@@ -9,11 +10,12 @@ export const BookProvider = ({ children }: { children: React.ReactNode }) => {
   const [category, setCategory] = useState("all");
   const [sortBy, setSortBy] = useState("relevance");
 
-  const { allBooks, displayedBooks, setDisplayedBooks, totalItems, isLoading, error } = useSearchBooks(query, category, sortBy);
+  const { displayedBooks, setDisplayedBooks, totalItems, isLoading, error } = useSearchBooks(query, category, sortBy, 1500);
 
-  const handleLoadMore = () => {
-    const nextBooks = allBooks.slice(displayedBooks.length, displayedBooks.length + 30);
-    setDisplayedBooks([...displayedBooks, ...nextBooks]);
+  const handleLoadMore = async () => {
+    const nextStartIndex = displayedBooks.length;
+    const nextData = await searchBooks(query, category, sortBy, nextStartIndex, 30);
+    setDisplayedBooks([...displayedBooks, ...nextData.items]);
   };
 
   const contextValue = {
