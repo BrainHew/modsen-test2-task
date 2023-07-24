@@ -47,10 +47,14 @@ const useSearchBooks = (
     }, [error]),
     delay
   );
+  
 
   useEffect(() => {
+    setDisplayedBooks([]);
+    setTotalItems(0);
     debouncedFetchBooks({ query, category, sortBy, startIndex: 0, maxResults: 30 });
-  }, [query, category, sortBy, debouncedFetchBooks]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query, category, sortBy]);
 
   return { allBooks, displayedBooks, setDisplayedBooks, isLoading, error, totalItems };
 };

@@ -7,7 +7,9 @@ interface SelectProps {
   onChange: (value: string) => void;
 }
 
-const Select: React.FC<SelectProps> = ({ label, value, options, onChange }) => {
+const SelectForm: React.FC<SelectProps> = (props) => {
+  const { label, value, options, onChange } = props;
+
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     onChange(event.target.value);
   };
@@ -17,8 +19,8 @@ const Select: React.FC<SelectProps> = ({ label, value, options, onChange }) => {
       <span className='text-white mr-3 mb-3 md:mb-0 opacity-90'>{label}:</span>
       <div className='relative w-full md:w-[200px]'>
         <select className='border rounded-md py2 px-4 w-full opacity-90  mr-2 md:mr-0 h-[37px]' value={value} onChange={handleChange}>
-          {options.map(option => (
-            <option key={option.value} value={option.value}>{option.label}</option>
+          {options.map(({ value, label }) => (
+            <option key={value} value={value}>{label}</option>
           ))}
         </select>
       </div>
@@ -26,4 +28,4 @@ const Select: React.FC<SelectProps> = ({ label, value, options, onChange }) => {
   );
 };
 
-export default Select;
+export default SelectForm;

@@ -1,15 +1,22 @@
 import React, { useContext } from 'react';
 
+import { BookContext } from '../../contexts/bookContext';
 import { IBook } from '../../types/types';
-import { BookContext } from '../../utils/bookContext';
-import ErrorBoundary from '../Error/ErrorBoundary/ErrorBoundary';
 import Error from '../Error/Error';
-import Loader from '../Loader/Loader';
+import ErrorBoundary from '../Error/ErrorBoundary';
+import Loader from '../Loader';
 import BookItem from './BookItem';
 
-const BookList: React.FC = () => {
+const BookList: React.FC = React.memo(() => {
+
+  const bookContext = useContext(BookContext);
+
+  if (!bookContext) {
+    return null;
+  }
   
-  const { books, totalItems, handleLoadMore, isLoading} = useContext(BookContext);
+  const { books, totalItems, handleLoadMore, isLoading } = bookContext;
+  
   if (!books) {
     return <Error />;
   }
@@ -30,7 +37,7 @@ const BookList: React.FC = () => {
           </ErrorBoundary>
         ))}
       </div>}
-      {books.length > 0 && books.length < totalItems && (
+      {books.length > 0 && books.length <  totalItems && (
         <div className="flex justify-center bottom-0 left-0 w-full">
           <button
             className=" text-black font-bold py-2 px-4 rounded-r"
@@ -42,6 +49,6 @@ const BookList: React.FC = () => {
       )}
     </div>
   );
-};
+});
 
 export default BookList;

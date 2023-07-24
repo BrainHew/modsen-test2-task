@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { useBookDetails } from '../../hooks/useBookDetails';
 import Error from '../Error/Error';
-import Loader from '../Loader/Loader';
+import Loader from '../Loader';
 
 const BookDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();

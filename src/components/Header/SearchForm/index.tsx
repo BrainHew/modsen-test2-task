@@ -2,21 +2,21 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { categoryOptions, sortByOptions } from "../../../constace/selectOptions";
-import { BookContext } from '../../../utils/bookContext';
-import ErrorBoundary from "../../Error/ErrorBoundary/ErrorBoundary";
-import SelectForm from "../SelectForm.tsx/SelectForm";
+import { BookContext } from '../../../contexts/bookContext';
+import ErrorBoundary from "../../Error/ErrorBoundary";
+import SelectForm from "../SelectForm.tsx";
 
 const SearchForm = () => {
-  const {
-    query,
-    category,
-    sortBy,
-    setQuery,
-    setCategory,
-    setSortBy,
-  } = useContext(BookContext);
+
+  const bookContext = useContext(BookContext);
 
   const navigate = useNavigate();
+  
+  if (!bookContext) {
+    return null;
+  }
+  
+  const {query, category, sortBy, setQuery, setCategory, setSortBy} = bookContext;
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,11 +42,11 @@ const SearchForm = () => {
       </form>
       <div className="flex flex-row justify-between items-center z-10">
         <ErrorBoundary>
-          <SelectForm label="Categories" value={category} options={categoryOptions} onChange={setCategory} />
+          <SelectForm {...{ label: "Categories", value: category, options: categoryOptions, onChange: setCategory }} />
         </ErrorBoundary>
         <div className="mx-4" />
         <ErrorBoundary>
-          <SelectForm label="Sort By" value={sortBy} options={sortByOptions} onChange={setSortBy} />
+          <SelectForm {...{ label: "Sort By", value: sortBy, options: sortByOptions, onChange: setSortBy }} />
         </ErrorBoundary>
       </div>
     </div>
