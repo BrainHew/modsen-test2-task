@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { categoryOptions, sortByOptions } from "../../../constace/selectOptions";
+import { categoryOptions, sortByOptions } from "../../../constants/selectOptions";
 import { BookContext } from '../../../contexts/bookContext';
 import ErrorBoundary from "../../Error/ErrorBoundary";
 import SelectForm from "../SelectForm.tsx";

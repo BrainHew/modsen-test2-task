@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { errorMessage } from '../../constace/constanceText';
+import { errorMessage } from '../../../constants/constantsText';
 
 const Error: React.FC = () => {
   return (

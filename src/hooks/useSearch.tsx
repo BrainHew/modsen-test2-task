@@ -48,7 +48,6 @@ const useSearchBooks = (
     delay
   );
   
-
   useEffect(() => {
     setDisplayedBooks([]);
     setTotalItems(0);

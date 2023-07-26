@@ -6,6 +6,7 @@ export interface IBookData {
   categories: string[];
   title: string;
   authors: string[];
+  description?: string;
 }
 
 export const formatBookData = (book: IBook): IBookData => {
@@ -14,6 +15,7 @@ export const formatBookData = (book: IBook): IBookData => {
   const categories = book.volumeInfo.categories || [];
   const title = book.volumeInfo.title || '';
   const authors = book.volumeInfo.authors || [];
+  const description = book.volumeInfo.description || '';
 
-  return { id, image, categories, title, authors };
+  return { id, image, categories, title, authors, description};
 };

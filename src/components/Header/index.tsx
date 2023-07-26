@@ -1,7 +1,7 @@
 import React from 'react';
 
 import backgroundImage from '../../assets/images/background.png';
-import {searchMessage } from '../../constace/constanceText';
+import {searchMessage } from '../../constants/constantsText';
 import SearchForm from './SearchForm';
 
 const Header: React.FC = () => {
