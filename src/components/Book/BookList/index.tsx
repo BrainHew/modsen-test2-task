@@ -22,7 +22,7 @@ const BookList: React.FC = React.memo(() => {
   }
 
   return (
-    <div className={` min-h-screen ${isDarkMode ? "bg-beige-600" : "bg-beige-100"}`}>
+    <main className={` min-h-screen ${isDarkMode ? "bg-beige-600" : "bg-beige-100"}`}>
       <div className="relative">
         <div className="flex flex-wrap justify-center">
           <h2 className={`m-2 text-base md:m-4 md:text-2xl mt-70 ${isDarkMode ? "text-gray-100" : "" }`}> 
@@ -47,7 +47,7 @@ const BookList: React.FC = React.memo(() => {
           </button>
         </div>
       )}
-    </div>
+    </main>
   );
 });
 

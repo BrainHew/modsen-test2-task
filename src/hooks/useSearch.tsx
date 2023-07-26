@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, memo } from 'react';
+import { useState, useEffect, useCallback} from 'react';
 
 import { searchBooks } from '../api/fetchBooks';
 import { IBook } from '../types/types';

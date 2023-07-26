@@ -32,7 +32,7 @@ const BookDetails: React.FC = () => {
   const image = imageLinks?.large || '';
 
   return (
-    <div className={`flex flex-col md:flex-row p-4 md:p-0 ${isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800"}`}>
+    <section className={`flex flex-col md:flex-row p-4 md:p-0 ${isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800"}`}>
       <div className="flex md:w-1/2 md:p-8 items-center justify-center">
         {image ? (
           <img
@@ -54,7 +54,7 @@ const BookDetails: React.FC = () => {
         </div>
         <div className={`text-gray-600 ${isDarkMode ? "text-white" : ""}`}>{description}</div>
       </div>
-    </div>
+    </section>
   );
 };
 

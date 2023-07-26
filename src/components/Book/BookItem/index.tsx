@@ -26,7 +26,7 @@ const BookItem: React.FC<BookItemProps> = ({ book }) => {
   };
 
   return (
-    <div
+    <section
       className={`bg-gray-50 border border-gray-300 p-2 m-2 md:m-2 max-w-xs w-24 md:max-w-md md:w-1/5 lg:w-1/6 cursor-pointer
        ${isDarkMode ? "bg-gray-800 border-gray-600 text-white" : ""}`}
       onClick={handleClick}
@@ -53,7 +53,7 @@ const BookItem: React.FC<BookItemProps> = ({ book }) => {
       <div className={`text-gray-600 mb-2 text-xs md:text-base break-words ${isDarkMode ? "text-white" : ""}`}>
         By {authors.join(', ')}
       </div>
-    </div>
+    </section>
   );
 };
 
