@@ -14,6 +14,8 @@ interface BookContextType {
   isLoading: boolean;
   handleLoadMore: () => Promise<void>;
   error: Error | null;
+  isDarkMode: boolean;
+  setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const BookContext = createContext<BookContextType | null>(null);
