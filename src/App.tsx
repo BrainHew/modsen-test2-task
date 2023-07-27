@@ -1,25 +1,20 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import BookDetails from './components/BookDetails/BookDetails';
-import BookList from './components/BookList/BookList';
-import Header from './components/Header/Header';
-import { bookDetailsPath, bookListPath } from './constace/constanceText';
-import { BookProvider } from './utils/bookContext';
+import Header from "./components/Header";
+import { routes } from "./constants/routesConst";
 
 const App = () => {
   return (
-    <BookProvider>
-      <div>
-        <BrowserRouter>
-          <Header/>
-          <Routes>
-            <Route path={bookListPath} element={<BookList />} />
-            <Route path={bookDetailsPath} element={<BookDetails />} />
-          </Routes>
-        </BrowserRouter>
-      </div>
-    </BookProvider>
+    <>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          {routes.map(({ path, element }) => (
+            <Route key={path} path={path} element={element} />
+          ))}
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 };
 
