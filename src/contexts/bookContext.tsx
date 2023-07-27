@@ -1,6 +1,6 @@
-import React, { createContext} from 'react';
+import React, { createContext } from "react";
 
-import { IBook } from '../types/types';
+import { IBook } from "../types/types";
 
 interface BookContextType {
   query: string;
@@ -13,7 +13,6 @@ interface BookContextType {
   totalItems: number;
   isLoading: boolean;
   handleLoadMore: () => Promise<void>;
-  error: Error | null;
   isDarkMode: boolean;
   setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
 }

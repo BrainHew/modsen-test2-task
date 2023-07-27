@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import { getBookDetails } from '../api/fetchBooksDetails';
-import { IBook } from '../types/types';
+import { getBookDetails } from "../api/fetchBooksDetails";
+import { IBook } from "../types/types";
 
 export const useBookDetails = (bookId: string) => {
   const [bookData, setBookData] = useState<IBook | null>(null);
@@ -13,13 +13,13 @@ export const useBookDetails = (bookId: string) => {
         const bookData = await getBookDetails(bookId);
         setBookData(bookData);
       } catch (error) {
-        setIsLoading(false);
+        console.error(error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchBookData();
+    void fetchBookData();
   }, [bookId]);
 
   return { bookData, isLoading };

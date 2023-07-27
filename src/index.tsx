@@ -1,19 +1,16 @@
-import ReactDOM from 'react-dom/client';
+import ReactDOM from "react-dom/client";
 
-import ErrorBoundary from './components/Error/ErrorBoundary';
-import { BookProvider } from './providers/BookProvider';
-import App from './App';
+import ErrorBoundary from "./components/Error/ErrorBoundary";
+import { BookProvider } from "./providers/BookProvider";
+import App from "./App";
 
-import './index.css';
+import "./index.css";
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
   <ErrorBoundary>
     <BookProvider>
-      <App/>
+      <App />
     </BookProvider>
-  </ErrorBoundary>
+  </ErrorBoundary>,
 );
-

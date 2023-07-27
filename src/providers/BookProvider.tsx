@@ -1,29 +1,50 @@
-import {useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { searchBooks } from "../api/fetchBooks";
 import { BookContext } from "../contexts/bookContext";
-import useSearchBooks from "../hooks/useSearch";
+import useSearchBooks, { IUseSearchBooksResult } from "../hooks/useSearch";
+import { IBook, IBookResponse } from "../types/types";
 
-export const BookProvider = ({ children }: { children: React.ReactNode }) => {
-  const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("all");
-  const [sortBy, setSortBy] = useState("relevance");
-  const [isDarkMode, setIsDarkMode] = useState(() => {
+export const BookProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}): JSX.Element => {
+  const [query, setQuery] = useState<string>("");
+  const [category, setCategory] = useState<string>("all");
+  const [sortBy, setSortBy] = useState<string>("relevance");
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     const storedValue = localStorage.getItem("isDarkMode");
+    //eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return storedValue ? JSON.parse(storedValue) : false;
   });
-  const { displayedBooks, setDisplayedBooks, totalItems, isLoading, error } = useSearchBooks(query, category, sortBy, 1500);
+  const {
+    displayedBooks,
+    setDisplayedBooks,
+    totalItems,
+    isLoading,
+    error,
+  }: IUseSearchBooksResult = useSearchBooks(query, category, sortBy, 1500);
 
-  const handleLoadMore = useCallback(async () => {
-    const nextStartIndex = displayedBooks.length;
-    const nextData = await searchBooks(query, category, sortBy, nextStartIndex, 30);
-    setDisplayedBooks((prevBooks) => [...prevBooks, ...nextData.items]);
+  const handleLoadMore = useCallback(async (): Promise<void> => {
+    const nextStartIndex: number = displayedBooks.length;
+    const nextData: IBookResponse = await searchBooks(
+      query,
+      category,
+      sortBy,
+      nextStartIndex,
+      30,
+    );
+    setDisplayedBooks((prevBooks: IBook[]) => [
+      ...prevBooks,
+      ...nextData.items,
+    ]);
   }, [displayedBooks, query, category, sortBy, setDisplayedBooks]);
 
   useEffect(() => {
     localStorage.setItem("isDarkMode", JSON.stringify(isDarkMode));
   }, [isDarkMode]);
-  
+
   const contextValue = {
     query,
     setQuery,
@@ -40,5 +61,7 @@ export const BookProvider = ({ children }: { children: React.ReactNode }) => {
     setIsDarkMode,
   };
 
-  return <BookContext.Provider value={contextValue}>{children}</BookContext.Provider>;
+  return (
+    <BookContext.Provider value={contextValue}>{children}</BookContext.Provider>
+  );
 };

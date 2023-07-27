@@ -1,16 +1,36 @@
-import { useCallback, useRef} from 'react';
+import { useEffect, useRef } from "react";
 
-type CallbackFunction = (args?: any) => void;
+import { IFetchBooksParams } from "./useSearch";
 
-export default function useDebounce(callback: CallbackFunction, delay: number): CallbackFunction {
+// eslint-disable-next-line no-unused-vars
+type CallbackFunction = (params: IFetchBooksParams) => Promise<void>;
+
+function useDebounce(
+  callback: CallbackFunction,
+  delay: number,
+): CallbackFunction {
   const timer = useRef<NodeJS.Timeout | null>(null);
 
-  return useCallback((args) => {
+  useEffect(() => {
+    return () => {
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
+    };
+  }, []);
+
+  function debouncedFunction(params: IFetchBooksParams): Promise<void> {
     if (timer.current) {
       clearTimeout(timer.current);
     }
-    timer.current = setTimeout(() => {
-      callback(args);
-    }, delay);
-  }, [callback, delay]);
+    return new Promise<void>((resolve) => {
+      timer.current = setTimeout(() => {
+        resolve(callback(params));
+      }, delay);
+    });
+  }
+
+  return debouncedFunction;
 }
+
+export default useDebounce;
